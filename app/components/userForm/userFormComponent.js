@@ -2,20 +2,19 @@ import EventManager from '../../managers/eventManager.js';
 import EventsType from '../../managers/eventsType.js';
 
 import User from '../../models/user.js';
-import UsersService from '../../services/usersService.js';
 
 import formTpl from './templates/form.js';
 
 export default class UserFormComponent {
     componentName = 'userForm';
-    mUsersService;
+    usersService;
     
     users;
 
-    constructor(appDom) {        
+    constructor(appDom, usersService) {        
         this.dom = appDom.querySelectorAll(`[data-component='${this.componentName}']`)[0];
         
-        this.mUsersService = new UsersService();
+        this.usersService = usersService;
     }
 
     initializeComponent() {
@@ -48,7 +47,7 @@ export default class UserFormComponent {
             event.preventDefault();
 
             let user = new User(self.inputUserName.value);
-            self.mUsersService.addUser(user);
+            self.usersService.addUser(user);
         });
 
         this.submitBtn.addEventListener('click', () => {

@@ -3,7 +3,7 @@ export default class EventManager {
     
     static unsubscribe(eventName) {
         this.listeners = this.listeners.filter(listener => { 
-            if(listerner.eventName = eventName)
+            if(listerner.eventName === eventName)
             {
                 console.log(`Event ${eventName} deleted`);
             }
@@ -23,7 +23,7 @@ export default class EventManager {
         console.log(`Event ${eventName} published`);
         
         this.listeners.forEach(listerner => {
-            if(listerner.eventName = eventName)
+            if(listerner.eventName === eventName)
             {
                 listerner.callback(data);
             }

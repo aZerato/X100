@@ -1,5 +1,8 @@
+import UsersService from './services/usersService.js';
+
 import UsersListComponent from './components/usersList/usersListComponent.js';
 import UserFormComponent from './components/userForm/userFormComponent.js';
+import UserDetailsComponent from './components/userDetails/userDetailsComponent.js';
 
 class Main {
     appName;
@@ -11,12 +14,16 @@ class Main {
     }
 
     initializeComponents() {
+        let usersService = new UsersService();
 
-        let usersListComponent = new UsersListComponent(this.appDom);
+        let usersListComponent = new UsersListComponent(this.appDom, usersService);
         usersListComponent.initializeComponent();
         
-        let userFormComponent = new UserFormComponent(this.appDom);
+        let userFormComponent = new UserFormComponent(this.appDom, usersService);
         userFormComponent.initializeComponent();
+
+        let userDetailsComponent = new UserDetailsComponent(this.appDom, usersService);
+        userDetailsComponent.initializeComponent();
     }
 }
 
