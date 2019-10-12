@@ -34,11 +34,10 @@ export default class UsersListComponent {
     eventsListeners() {
         let self = this;
 
-        EventManager.subscribe(EventsType.UserAdded, (user) => { self.userListAdd(user) });
+        EventManager.subscribe(EventsType.UserAdded, () => { self.userListAdd() });
     }
 
-    userListAdd(user) {
-        this.users.push(user);
+    userListAdd() {
         this.render();
     }
 
