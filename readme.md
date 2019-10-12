@@ -1,0 +1,1 @@
+On mac open terminal and type > python -m SimpleHTTPServer 8000
