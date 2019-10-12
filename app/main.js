@@ -2,13 +2,16 @@ import UsersListComponent from './components/usersList/usersListComponent.js';
 
 class Main {
     appName;
+    appDom;
+    
     constructor(appName) {
         this.appName = appName;
+        this.appDom = document.querySelectorAll(`[data-component='${this.appName}']`)[0];
     }
 
     initializeComponents() {
 
-        let usersListComponent = new UsersListComponent();
+        let usersListComponent = new UsersListComponent(this.appDom);
         usersListComponent.initializeComponent();
         
     }
