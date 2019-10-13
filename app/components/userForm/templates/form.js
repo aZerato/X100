@@ -3,7 +3,7 @@ const formTpl =
     <input type="text" name="user.name" placeholder="Username" required/>
     <button type="submit" 
             class="btn waves-effect waves-light"> 
-        <i class="material-icons">add</i> User
+            <i class="material-icons left">add</i> User
     </button>
 </form>`;
 

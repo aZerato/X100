@@ -5,7 +5,7 @@ const listTpl = (items) =>
     <li class="collection-header">
         <h4>Users List</h4>
     </li>
-    ${items.map(item => listItemTpl(item))}
+    ${items.map(item => listItemTpl(item)).join('')}
 </ul>`;
 
 export default listTpl;

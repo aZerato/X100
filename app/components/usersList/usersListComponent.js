@@ -7,11 +7,16 @@ export default class UsersListComponent {
     componentName = 'usersList';
     usersService;
     
-    get users() { 
+    getUsers(userId) { 
         return this.usersService
             .getAll()
             .sort((userA, userB) => {
                 return userB.counter - userA.counter;
+            }).filter((u) => {
+                if (u.id === userId) u.isSelected = true;
+                else u.isSelected = false;
+
+                return u;
             }); 
     }
 
@@ -22,15 +27,15 @@ export default class UsersListComponent {
     }
 
     initializeComponent() {
-        console.table(this.users);
+        console.table(this.getUsers());
         
         this.render();
 
         this.eventsListeners();
     }
 
-    render() {
-        this.dom.innerHTML = listTpl(this.users);
+    render(userId) {
+        this.dom.innerHTML = listTpl(this.getUsers(userId));
 
         this.itemsBinding();
     }
@@ -38,8 +43,9 @@ export default class UsersListComponent {
     eventsListeners() {
         let self = this;
 
-        EventManager.subscribe(EventsType.UserAdded, () => { self.render() });
-        EventManager.subscribe(EventsType.UserUpdated, () => { self.render() });
+        EventManager.subscribe(EventsType.UserAdded, (userId) => { self.render(userId) });
+        EventManager.subscribe(EventsType.UserUpdated, (userId) => { self.render(userId) });
+        EventManager.subscribe(EventsType.UserSelected, (userId) => { self.render(userId) });
     }
 
     itemsBinding() {
