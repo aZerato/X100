@@ -3,9 +3,10 @@ export default class EventManager {
     
     static unsubscribe(eventName) {
         this.listeners = this.listeners.filter(listener => { 
-            if(listerner.eventName === eventName)
+            if(listener.eventName === eventName)
             {
                 console.log(`Event ${eventName} deleted`);
+                return;
             }
             return listener.eventName != eventName; 
         });

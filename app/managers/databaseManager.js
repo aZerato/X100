@@ -36,7 +36,7 @@ export default class DatabaseManager {
             return;
         }
 
-        let request = 'CREATE TABLE IF NOT EXISTS ' + tableName + ' (' + tableProperties.join(',') + ')';
+        let request = `CREATE TABLE IF NOT EXISTS ${tableName} (${tableProperties.join(',')})`;
         console.log(request);
 
         self.db.transaction(function(tx) {
@@ -44,10 +44,10 @@ export default class DatabaseManager {
                 request,
                 [],
                 function(tx) {
-                    console.log('Table ' + tableName + ' sucessfully created');
+                    console.log(`Table ${tableName} sucessfully created`);
                 },
                 function(e) {
-                    console.log('Table ' + tableName + ' creation problem : ' + e.message);
+                    console.log(`Table ${tableName} creation problem :  ${e.message}`);
                 });
         });
     };
@@ -69,13 +69,13 @@ export default class DatabaseManager {
 
         self.db.transaction(function(tx) {
             tx.executeSql(
-                'DROP TABLE ' + tableName,
+                `DROP TABLE ${tableName}`,
                 [],
                 function(tx) {
-                    console.log('Table ' + tableName + ' sucessfully droped');
+                    console.log(`Table ${tableName} sucessfully droped`);
                 },
                 function(e) {
-                    console.log('Table ' + tableName + ' drop problem : ' + e.message);
+                    console.log(`Table ${tableName} drop problem :  ${e.message}`);
                 }
             );
         });
@@ -102,7 +102,7 @@ export default class DatabaseManager {
             return new Promise((resolve) => {
                 self.db.readTransaction((tx) => {
                     tx.executeSql(
-                        'SELECT * FROM ' + tableName,
+                        `SELECT * FROM ${tableName}`,
                         [],
                         function(t, data) {
                             var results = [];
@@ -121,7 +121,7 @@ export default class DatabaseManager {
             return new Promise((resolve) => {
                 self.db.transaction((tx) => {
                     tx.executeSql(
-                        'SELECT (' + tableProperties.join(',') + ') FROM ' + tableName,
+                        `SELECT (${tableProperties.join(',')}) FROM ${tableName}`,
                         [],
                         function(t, data) {
                             var results = [];
@@ -169,8 +169,9 @@ export default class DatabaseManager {
             return;
         }
 
-        let request = 'INSERT INTO ' + tableName + ' (' + tableProperties.join(',') + ') ' + 
-                            'VALUES ("' + tableValues.join('","') + '")';
+        let request = `INSERT INTO ${tableName} (${tableProperties.join(',')}) 
+                            VALUES ("${tableValues.join('","')}")`;
+
         console.log(request);
 
         self.db.transaction(function(tx) {
@@ -178,10 +179,10 @@ export default class DatabaseManager {
             request,
             [],
             function(tx) {
-                console.log('Table ' + tableName + ' sucessfully inserted');
+                console.log(`Table ${tableName} sucessfully inserted`);
             },
             function(e) {
-                console.log('Table ' + tableName + ' insert problem : ' + e.message);
+                console.log(`Table ${tableName} insert problem : ${e.message}`);
             });
         });
     };
@@ -202,7 +203,7 @@ export default class DatabaseManager {
             return;
         }
 
-        var request = 'DELETE FROM ' + tableName + ' WHERE id LIKE "' + id + '"';
+        let request = `DELETE FROM ${tableName} WHERE id LIKE "${id}"`;
 
         console.log(request);
 
@@ -211,61 +212,12 @@ export default class DatabaseManager {
             request,
             [],
             function(tx) {
-                console.log('Table ' + tableName + ' sucessfully deleted the entry with id : ' + id);
+                console.log(`Table ${tableName} sucessfully deleted the entry with id : ${id}`);
             },
             function(e) {
-                console.log('Table ' + tableName + ' delete problem the entry with id : ' + id + '(message : ' + e.message + ')');
+                console.log(`Table ${tableName} delete problem the entry with id : ${id} (message : ${e.message})`);
             });
         });		
-    };
-
-    // tableName (string) : the table name
-    // tableProperties (array of string) : [id, name, firstname]
-    // tableValues (array of value) : [valueOfId, valueOfName, valueOfFirstname]
-    insert(tableName, tableProperties, tableValues) {
-        let self = this;
-
-        if(self.db == null)
-        {
-            console.log('No Database initialized');
-            return;
-        }
-        if (tableName == undefined || tableName == '')
-        {
-            console.log('No table name specified');
-            return;
-        }
-        if (tableProperties == undefined || tableProperties == '' || tableProperties.length == 0)
-        {
-            console.log('No properties specified');
-            return;
-        }
-        if (tableValues == undefined || tableValues == '' || tableValues.length == 0)
-        {
-            console.log('No values specified');
-            return;
-        }
-        if(tableProperties.length !== tableValues.length)
-        {
-            console.log('No missing properties or values');
-            return;
-        }
-
-        let request = 'INSERT INTO ' + tableName + ' (' + tableProperties.join(',') + ') ' + 
-                            'VALUES ("' + tableValues.join('","') + '")';
-        console.log(request);
-
-        self.db.transaction(function(tx) {
-            tx.executeSql(
-            request,
-            [],
-            function(tx) {
-                console.log('Table ' + tableName + ' sucessfully inserted');
-            },
-            function(e) {
-                console.log('Table ' + tableName + ' insert problem : ' + e.message);
-            });
-        });
     };
 
     // tableName (string) : the table name
@@ -332,10 +284,10 @@ export default class DatabaseManager {
             request,
             [],
             function(tx) {
-                console.log('Table ' + tableName + ' sucessfully updated the entry');
+                console.log(`Table ${tableName} sucessfully updated the entry`);
             },
             function(e) {
-                console.log('Table ' + tableName + ' update problem the entry with the following request : ' + request + '(message : ' + e.message + ')');
+                console.log(`Table ${tableName} update problem the entry with the following request : ${request} (message : ${e.message})`);
             });
         });		
     };

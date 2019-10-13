@@ -48,6 +48,15 @@ export default class UsersService {
         EventManager.publish(EventsType.UserAdded, user.id);
     }
 
+    remove(userId) {
+        this.databaseX100.delete(this.tableName, 
+            userId);
+        
+        this.users = this.users.filter(u => { if (u.id !== userId) return u; });
+
+        EventManager.publish(EventsType.UserDeleted);
+    }
+
     update(user) {
         this.users.map((u) => {
             if (u.id === user.id)

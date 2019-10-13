@@ -46,6 +46,7 @@ export default class UsersListComponent {
         EventManager.subscribe(EventsType.UserAdded, (userId) => { self.render(userId) });
         EventManager.subscribe(EventsType.UserUpdated, (userId) => { self.render(userId) });
         EventManager.subscribe(EventsType.UserSelected, (userId) => { self.render(userId) });
+        EventManager.subscribe(EventsType.UserDeleted, () => { self.render() });
     }
 
     itemsBinding() {

@@ -4,6 +4,8 @@ import EventsType from '../../managers/eventsType.js';
 import detailsTpl from './templates/details.js';
 import defaultDetailsTpl from './templates/defaultDetails.js';
 
+import DeleteUserModalComponent from './deleteUserModalComponent.js';
+
 export default class UserDetailsComponent {
     componentName = 'userDetails';
     usersService;
@@ -39,6 +41,10 @@ export default class UserDetailsComponent {
         EventManager.subscribe(EventsType.UserAdded, (userId) => { self.userSelected(userId) });
         EventManager.subscribe(EventsType.UserSelected, (userId) => { self.userSelected(userId) });
         EventManager.subscribe(EventsType.UserUpdated, (userId) => { self.userSelected(userId) });
+        EventManager.subscribe(EventsType.UserDeleted, () => { 
+            self.user = undefined;
+            self.render() 
+        });
     }
 
     userSelected(userId) {
@@ -62,6 +68,16 @@ export default class UserDetailsComponent {
         this.btnAddCounter.addEventListener('click', function(event) {
             self.user.counter++;
             self.usersService.update(self.user);
+        });
+
+        this.btnDeleteUser = this.dom.querySelectorAll('[data-action="deleteUser"]')[0];
+        this.btnDeleteUser.addEventListener('click', function(event) {
+            let deleteUserModalComponent = new DeleteUserModalComponent(
+                self.dom, 
+                self.usersService);
+            deleteUserModalComponent.initializeComponent();
+
+            EventManager.publish(EventsType.UserSelectedForDeletion, self.user);
         });
     }
 }
