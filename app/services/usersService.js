@@ -24,9 +24,21 @@ export default class UsersService {
         return this.users.find((u) => { return u.id == id });
     }
 
-    addUser(user) {
+    add(user) {
         this.users.push(user);
 
-        EventManager.publish(EventsType.UserAdded, user);
+        EventManager.publish(EventsType.UserAdded, user.id);
+    }
+
+    update(user) {
+        this.users.map((u) => {
+            if (u.id === user.id)
+            {
+                u.img = user.img;
+                u.counter = user.counter;
+                EventManager.publish(EventsType.UserUpdated, user.id);
+                return;
+            }
+        });
     }
 }

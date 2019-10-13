@@ -1,6 +1,7 @@
 const EventTypes = {
     UserAdded: 'UserAdded',
-    UserSelected: 'UserSelected'
+    UserSelected: 'UserSelected',
+    UserUpdated: 'UserUpdated'
 };
 
 export default EventTypes;

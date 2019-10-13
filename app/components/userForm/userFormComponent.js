@@ -47,7 +47,7 @@ export default class UserFormComponent {
             event.preventDefault();
 
             let user = new User(self.inputUserName.value);
-            self.usersService.addUser(user);
+            self.usersService.add(user);
         });
 
         this.submitBtn.addEventListener('click', () => {

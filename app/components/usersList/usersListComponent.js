@@ -7,7 +7,7 @@ export default class UsersListComponent {
     componentName = 'usersList';
     usersService;
     
-    users;
+    get users() { return this.usersService.getAll() };
 
     constructor(appDom, usersServices) {        
         this.dom = appDom.querySelectorAll(`[data-component='${this.componentName}']`)[0];
@@ -16,8 +16,6 @@ export default class UsersListComponent {
     }
 
     initializeComponent() {
-        this.users = this.usersService.getAll();
-        
         console.table(this.users);
         
         this.render();
@@ -34,11 +32,8 @@ export default class UsersListComponent {
     eventsListeners() {
         let self = this;
 
-        EventManager.subscribe(EventsType.UserAdded, () => { self.userListAdd() });
-    }
-
-    userListAdd() {
-        this.render();
+        EventManager.subscribe(EventsType.UserAdded, () => { self.render() });
+        EventManager.subscribe(EventsType.UserUpdated, () => { self.render() });
     }
 
     itemsBinding() {
