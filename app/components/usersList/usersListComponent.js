@@ -7,7 +7,13 @@ export default class UsersListComponent {
     componentName = 'usersList';
     usersService;
     
-    get users() { return this.usersService.getAll() };
+    get users() { 
+        return this.usersService
+            .getAll()
+            .sort((userA, userB) => {
+                return userB.counter - userA.counter;
+            }); 
+    }
 
     constructor(appDom, usersServices) {        
         this.dom = appDom.querySelectorAll(`[data-component='${this.componentName}']`)[0];
