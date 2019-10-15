@@ -4,7 +4,8 @@ const EventTypes = {
     UserSelected: 'UserSelected',
     UserUpdated: 'UserUpdated',
     UserSelectedForDeletion: 'UserSelectedForDeletion',
-    UserDeleted: 'UserDeleted'
+    UserDeleted: 'UserDeleted',
+    UserSelectedForImg: 'UserSelectedForImg'
 };
 
 export default EventTypes;

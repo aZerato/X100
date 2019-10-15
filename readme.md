@@ -23,7 +23,8 @@ Homemade :
 
 # Run
 
-On mac open terminal and type > python -m SimpleHTTPServer 8000
+On mac open terminal and type 
+> python -m SimpleHTTPServer 8000
 
 or
 

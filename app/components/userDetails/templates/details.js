@@ -1,7 +1,9 @@
+const css = './app/components/userDetails/styles/uploadProfilImageModal.css';
+
 const detailsTpl = (user) =>
 `<div class="card" data-id="${user.id}">
         <div class="card-image">
-            <img src="${user.img}">
+            <img data-action="uploadProfilImg" src="${user.img}">
             <a class="btn-floating halfway-fab waves-effect waves-light blue"
                 style="right: 68px;"
                 data-action="addCount">
@@ -22,7 +24,11 @@ const detailsTpl = (user) =>
             </a>
         </div>
       </div>
-      <div data-component="deleteUserModal"></div>`;
+
+      <div data-component="deleteUserModal"></div>
+      
+      <div data-component="uploadProfilImageModal"></div>
+      <link rel="stylesheet" type="text/css" href="${css}">`;
 
 export default detailsTpl;
 

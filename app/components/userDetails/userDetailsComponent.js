@@ -5,6 +5,7 @@ import detailsTpl from './templates/details.js';
 import defaultDetailsTpl from './templates/defaultDetails.js';
 
 import DeleteUserModalComponent from './deleteUserModalComponent.js';
+import UploadProfilImageModalComponent from './uploadProfilImageModalComponent.js';
 
 export default class UserDetailsComponent {
     componentName = 'userDetails';
@@ -78,6 +79,16 @@ export default class UserDetailsComponent {
             deleteUserModalComponent.initializeComponent();
 
             EventManager.publish(EventsType.UserSelectedForDeletion, self.user);
+        });
+
+        this.btnProfilImgUser = this.dom.querySelectorAll('[data-action="uploadProfilImg"]')[0];
+        this.btnProfilImgUser.addEventListener('click', function(event) {
+            let uploadProfilImageModalComponent = new UploadProfilImageModalComponent(
+                self.dom, 
+                self.usersService);
+            uploadProfilImageModalComponent.initializeComponent();
+
+            EventManager.publish(EventsType.UserSelectedForImg, self.user);
         });
     }
 }
