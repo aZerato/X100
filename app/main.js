@@ -9,6 +9,7 @@ import UsersService from './services/usersService.js';
 import UsersListComponent from './components/usersList/usersListComponent.js';
 import UserFormComponent from './components/userForm/userFormComponent.js';
 import UserDetailsComponent from './components/userDetails/userDetailsComponent.js';
+import UserRandomComponent from './components/userRandom/userRandomComponent.js';
 
 class Main {
     appName;
@@ -40,6 +41,11 @@ class Main {
                 this.appDom, 
                 usersService);
             userDetailsComponent.initializeComponent();
+
+            let userRandomComponent = new UserRandomComponent(
+                this.appDom, 
+                usersService);
+            userRandomComponent.initializeComponent();
         });
     }
 }
