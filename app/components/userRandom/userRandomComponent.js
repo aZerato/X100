@@ -9,6 +9,7 @@ export default class UserRandomComponent {
     componentName = 'userRandom';
     usersService;
     durationSeconds = 10;
+    status = 0;
 
     getUsers() { 
         this.users = this.usersService
@@ -24,15 +25,17 @@ export default class UserRandomComponent {
     }
 
     initializeComponent() {
-        this.getUsers()
-        
-        this.randomUser();
-
+        this.getUsers();
         this.render();
+        this.btnBinding();
     }
 
     render() {
-        this.dom.innerHTML = userRandomTpl(this.selectedUser);
+        let selection = {
+            status: this.status,
+            text: this.status === 0 ?  "Click to launch selection" : this.selectedUser.name
+        }
+        this.dom.innerHTML = userRandomTpl(selection);
         
         this.eventsListeners();
     }
@@ -41,6 +44,17 @@ export default class UserRandomComponent {
         let self = this;
 
         //EventManager.subscribe(EventsType.UserAdded, () => { self.cleanForm() });
+    }
+
+    btnBinding() {
+        let self = this;
+
+        this.selectionBtn = this.dom.querySelectorAll('[data-action="StartSelection"]')[0];
+
+        this.selectionBtn.addEventListener('click', () => {
+            self.status = 1;
+            self.randomUser(); 
+        });
     }
 
     randomUser() {
@@ -56,6 +70,7 @@ export default class UserRandomComponent {
             self.durationSeconds =  self.durationSeconds - 250/8;
             
             if (self.durationSeconds < 0) {
+                self.status = 2;
                 clearInterval(userSelectorAnimation);
             }
             
